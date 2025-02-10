@@ -4,6 +4,7 @@ import { generateSuccessProbability, generateConfirmationCode } from '../utils/u
 import { z } from 'zod';
 import { CustomError } from '../utils/customError';
 import { GadgetWithProbability } from '../types/gadget.types';
+import { GadgetStatus } from '@prisma/client';
 
 // Define both external and internal status types
 type ExternalStatus = 'Available' | 'Deployed' | 'Destroyed' | 'Decommissioned';
@@ -11,7 +12,7 @@ type InternalStatus = 'Active' | 'Inactive' | 'Decommissioned';
 
 const gadgetSchema = z.object({
     name: z.string().min(3).max(255),
-    status: z.enum(['Available', 'Deployed', 'Destroyed', 'Decommissioned']).optional(),
+    status: z.enum(['Active', 'Inactive', 'Available', 'Deployed', 'Destroyed', 'Decommissioned']).optional(),
 });
 
 const gadgetUpdateSchema = z.object({
@@ -138,7 +139,7 @@ export const selfDestructGadget = async (req: Request, res: Response, next: Next
         }
 
         // Ensure gadget is not already destroyed or decommissioned
-        if (gadget.status === 'Inactive' || gadget.status === 'Decommissioned') {
+        if (gadget.status === 'Destroyed' || gadget.status === 'Decommissioned') {
             return next(new CustomError(400, 'Gadget cannot be self-destructed'));
         }
 
