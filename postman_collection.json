@@ -1,0 +1,266 @@
+{
+    "info": {
+        "_postman_id": "your-postman-id",
+        "name": "IMF Gadget API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Register User",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"new_agent\",\n    \"password\": \"securePassword\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:3000/auth/register",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "auth",
+                        "register"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"new_agent\",\n    \"password\": \"securePassword\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:3000/auth/login",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "auth",
+                        "login"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get All Gadgets (Protected)",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:3000/gadgets",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets"
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header. Obtain the token from /auth/login or /auth/register. Set a Postman environment variable 'authToken' with the token value."
+            },
+            "response": []
+        },
+        {
+            "name": "Create Gadget (Protected)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"New Gadget Name\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:3000/gadgets",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets"
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header."
+            },
+            "response": []
+        },
+        {
+            "name": "Update Gadget (Protected)",
+            "request": {
+                "method": "PATCH",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"status\": \"Deployed\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:3000/gadgets/{{gadgetId}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets",
+                        "{{gadgetId}}"
+                    ],
+                    "variable": [
+                        {
+                            "key": "gadgetId",
+                            "value": "your_gadget_id"
+                        }
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header."
+            },
+            "response": []
+        },
+        {
+            "name": "Decommission Gadget (Protected)",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:3000/gadgets/{{gadgetId}}",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets",
+                        "{{gadgetId}}"
+                    ],
+                    "variable": [
+                        {
+                            "key": "gadgetId",
+                            "value": "your_gadget_id"
+                        }
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header."
+            },
+            "response": []
+        },
+        {
+            "name": "Self-Destruct Gadget (Protected)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:3000/gadgets/{{gadgetId}}/self-destruct",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets",
+                        "{{gadgetId}}",
+                        "self-destruct"
+                    ],
+                    "variable": [
+                        {
+                            "key": "gadgetId",
+                            "value": "your_gadget_id"
+                        }
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header."
+            },
+            "response": []
+        },
+        {
+            "name": "Get Gadgets by Status (Protected)",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:3000/gadgets?status=Available",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000",
+                    "path": [
+                        "gadgets"
+                    ],
+                    "query": [
+                        {
+                            "key": "status",
+                            "value": "Available"
+                        }
+                    ]
+                },
+                "description": "Requires a valid JWT token in the Authorization header."
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "authToken",
+            "value": "",
+            "description": "JWT token obtained from login or registration. Set this environment variable after successful login/registration."
+        }
+    ]
+}

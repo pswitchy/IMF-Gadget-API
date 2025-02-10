@@ -1,0 +1,25 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GadgetStatus {
+  Active
+  Inactive
+  Available
+  Deployed
+  Destroyed
+  Decommissioned
+}
+
+model Gadget {
+  id              String       @id @default(uuid())
+  name            String
+  status          GadgetStatus @default(Available)
+  decommissionedAt DateTime?
+}
